@@ -9,6 +9,17 @@
 
 terraform {
   required_version = ">= 0.12"
+
+  backend "s3" {
+    # Replace this with your bucket name!
+    bucket         = "terraform-up-and-running-state-g3rhard"
+    key            = "workspaces-example/terraform.tfstate"
+    region         = "us-east-2"
+    # Replace this with your DynamoDB table name!
+    dynamodb_table = "terraform-up-and-running-locks"
+    encrypt        = true
+  }
+
 }
 
 # ------------------------------------------------------------------------------
@@ -58,4 +69,9 @@ resource "aws_dynamodb_table" "terraform_locks" {
     name = "LockID"
     type = "S"
   }
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t3.nano"
 }
