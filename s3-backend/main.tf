@@ -16,7 +16,9 @@ terraform {
 # ------------------------------------------------------------------------------
 
 provider "aws" {
-  region = "us-east-2"
+  region                  = "us-east-2"
+  profile                 = "terraform"
+  shared_credentials_file = "~/.aws/terraform"
 }
 
 # ------------------------------------------------------------------------------
@@ -25,7 +27,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "terraform_state" {
   # TODO: change this to your own name! S3 bucket names must be *globally* unique.
-  bucket = "terraform-up-and-running-state"
+  bucket = "terraform-up-and-running-state-g3rhard"
 
   # Enable versioning so we can see the full revision history of our
   # state files
